@@ -7,7 +7,6 @@ import {
   Dimensions,
 } from "react-native";
 import React from "react";
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { RootStackParamList } from "../App";
