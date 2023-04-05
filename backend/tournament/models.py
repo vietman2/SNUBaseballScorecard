@@ -13,11 +13,11 @@ class Tournament(models.Model):
 
     @property
     def name(self):
-        return self.year + ' ' + self.type
+        return f"{self.year} {self.type}"
 
     @property
     def id(self):
-        return (self.year%100) + ' ' + self.type
+        return f"{self.year%100} {self.type}"
 
     def __str__(self):
         return self.name
