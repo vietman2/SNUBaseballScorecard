@@ -3,12 +3,14 @@ import { StyleSheet, View, Text } from "react-native";
 import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
 import { fetchTournaments } from "../services/tournament";
 
+/*
 type TournamentType = {
   id: number;
   name: string;
   start_date: string;
   end_date: string;
 }
+*/
 
 export default function TeamInfo() {
   const [open, setOpen] = useState<boolean>(false);
