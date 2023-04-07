@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,22 +26,29 @@ SECRET_KEY = 'django-insecure-m+ks8hj@8ujo*%!yqq@7e-tmw42!of*q3zkc91q1@^l%!-h-(u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '172.21.132.100']
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'tournament.apps.TournamentConfig',
-    'player.apps.PlayerConfig',
-    'team.apps.TeamConfig',
-    'group.apps.GroupConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'corsheaders',
+
+    'group',
+    'player',
+    'referee',
+    'team',
+    'tournament',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'scorecard.urls'
@@ -125,3 +134,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_ALLOW_REFRESH': True,
+}
