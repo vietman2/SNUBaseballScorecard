@@ -41,9 +41,18 @@ export default function MainPage({ navigation }: MainProps) {
           Open up App.tsx to start working on your app!
         </Text>
         <View style={styles.buttons}>
-          <Button title="팀 정보" onPress={() => navigate(1)} />
-          <Button title="일정/결과" onPress={() => navigate(2)} />
-          <Button title="기록실" onPress={() => navigate(3)} />
+          <Button
+            title="팀 정보"
+            onPress={() => navigation.navigate("TeamInfo")}
+          />
+          <Button
+            title="일정/결과"
+            onPress={() => navigation.navigate("Schedule")}
+          />
+          <Button
+            title="기록실"
+            onPress={() => navigation.navigate("Records")}
+          />
         </View>
         <Button
           title="Testing Center"
