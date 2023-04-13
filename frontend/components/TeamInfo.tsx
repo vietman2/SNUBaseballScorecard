@@ -21,12 +21,12 @@ export default function TeamInfo() {
 
   useEffect(() => {
     const tournaments = fetchTournaments();
-    console.log(tournaments)
+    console.log(tournaments);
   }, []);
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.picker}>
         <Text style={styles.title}>대회</Text>
         <DropDownPicker
           items={items}
@@ -40,6 +40,7 @@ export default function TeamInfo() {
           textStyle={styles.dropdownText}
         />
       </View>
+      <View style={styles.info}></View>
     </View>
   );
 }
@@ -48,6 +49,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  picker: {
+    flex: 1,
+  },
+  info: {
+    flex: 9,
+    backgroundColor: "black",
   },
   title: {
     fontSize: 32,

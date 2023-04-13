@@ -20,16 +20,6 @@ interface MainProps {
 const { width } = Dimensions.get("window");
 
 export default function MainPage({ navigation }: MainProps) {
-  const navigate = (type: number) => {
-    if (type === 1) {
-      console.log("login");
-    } else if (type === 2) {
-      console.log("signup");
-    } else if (type === 3) {
-      console.log("home");
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
