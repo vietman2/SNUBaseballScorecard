@@ -18,8 +18,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tournament/', include('tournament.urls')),
-    path('player/', include('player.urls')),
-    path('team/', include('team.urls')),
-    path('group/', include('group.urls')),
+    path('api/tournament/', include('tournament.urls')),
+    path('api/player/', include('player.urls')),
+    path('api/team/', include('team.urls')),
+    path('api/group/', include('group.urls')),
 ]
