@@ -6,6 +6,7 @@ from team.models import Team
 
 class Player(models.Model):
     student_id = models.CharField(max_length=10, primary_key=True, unique=True)
+    second_id = models.CharField(max_length=10, null=True)
     name = models.CharField(max_length=10)
     elite = models.BooleanField(default=False)
     
