@@ -15,6 +15,6 @@ class Team_Record(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=10, null=True)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     captain_Name = models.CharField(max_length=10)
     captain_PhoneNumber = models.CharField(max_length=15)
