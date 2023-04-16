@@ -5,7 +5,7 @@ from tournament.models import Tournament
 # Create your models here.
 
 class Group(models.Model):
-    name = models.CharField(max_length=10, unique=True)
+    name = models.CharField(max_length=10)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
 
     class Meta:
