@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 from .models import Tournament
 
@@ -6,5 +6,12 @@ from .models import Tournament
 
 def list(request):
     if request.method == 'GET':
-        tournaments_list = [tournament for tournament in Tournament.objects.all().values()]
-        return JsonResponse(tournaments_list, safe=False)
+        tournaments = Tournament.objects.all().values()
+        tournament_list = [t for t in tournaments]
+        return JsonResponse(tournament_list, safe=False)
+
+def names(request):
+    if request.method == 'GET':
+        tournaments = Tournament.objects.all().order_by('-id')
+        names = [t.name for t in tournaments]
+        return JsonResponse({"names": names}) 
