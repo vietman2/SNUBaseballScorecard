@@ -6,6 +6,8 @@ import { fetchTournamentNames } from "../services/tournament";
 import { fetchTeams } from "../services/team";
 import { TeamType } from "../variables/types";
 
+// TODO: 팀 이름 터치 시 팀 정보 페이지로 이동
+
 export default function TeamInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string | null>(null);

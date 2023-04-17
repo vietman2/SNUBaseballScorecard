@@ -1,0 +1,6 @@
+*/venv
+.pylintrc
+test.py
+db.sqlite3
+.gitignore
+.git
