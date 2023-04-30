@@ -7,3 +7,9 @@ export type TeamType = {
   captain_PhoneNumber: string;
   nickname: string;
 };
+
+export type GroupType = {
+  id: number;
+  name: string;
+  tournament_id: number;
+};

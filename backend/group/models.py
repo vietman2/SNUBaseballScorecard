@@ -12,4 +12,5 @@ class Group(models.Model):
         unique_together = ('name', 'tournament')
 
     def __str__(self):
-        return self.name + "조"
+        return self.name
+    

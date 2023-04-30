@@ -19,3 +19,6 @@ class Team_Record(models.Model):
     second_round = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, default=None, related_name='second_round')
     captain_Name = models.CharField(max_length=10)
     captain_PhoneNumber = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.tournament.name + ' ' + self.team.name

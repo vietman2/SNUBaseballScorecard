@@ -4,10 +4,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler"
 
 import MainPage from "./components/MainPage";
-import Testing from "./components/Testing";
-import TeamInfo from "./components/TeamInfo";
-import Schedule from "./components/ScheduleResults";
-import Records from "./components/Records";
+import TeamInfo from "./components/TeamInfo/TeamInfo";
+import Schedule from "./components/ScheduleResults/ScheduleResults";
+import Records from "./components/Records/Records";
 
 export type RootStackParamList = {
   MainPage: undefined;
@@ -27,7 +26,6 @@ function App() {
         <Stack.Screen name="TeamInfo" component={TeamInfo} />
         <Stack.Screen name="Schedule" component={Schedule} />
         <Stack.Screen name="Records" component={Records} />
-        <Stack.Screen name="Testing" component={Testing} />
       </Stack.Navigator>
     </NavigationContainer>
   );

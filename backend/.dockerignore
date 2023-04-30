@@ -1,0 +1,8 @@
+*/venv
+.pylintrc
+db.sqlite3
+.gitignore
+.git
+test.py
+initial_data.py
+secret.txt

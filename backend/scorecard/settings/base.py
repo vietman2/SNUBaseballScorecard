@@ -21,13 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m+ks8hj@8ujo*%!yqq@7e-tmw42!of*q3zkc91q1@^l%!-h-(u'
+with open(BASE_DIR / 'secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '172.21.132.100']
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 
@@ -81,17 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'scorecard.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation

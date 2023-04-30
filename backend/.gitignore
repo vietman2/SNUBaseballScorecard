@@ -130,3 +130,5 @@ dmypy.json
 
 # Custom
 test.py
+initial_data.py
+secret.txt

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: gunicorn scorecard.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: scorecard.settings.production
+    expose:
+      - 8000
+    networks:
+      - nginx_network
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: vietman2
+      POSTGRES_PASSWORD: vietman2
+      POSTGRES_DB: scorecard
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - nginx_network
+
+  redis:
+    image: redis:6.2
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:1.21
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_volume:/app/static
+    ports:
+      - "8080:80"
+    networks:
+      - nginx_network
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  db_data:
+
+networks:
+  nginx_network:
