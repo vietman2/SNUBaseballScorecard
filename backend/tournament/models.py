@@ -10,7 +10,7 @@ class TournamentManager(models.Manager):
 
 class Tournament(models.Model):
     year = models.IntegerField()
-    type = models.CharField(max_length=3, choices=[('총장배', '총장배'), ('종체', '총장배')])
+    type = models.CharField(max_length=3, choices=[('총장배', '총장배'), ('종체', '종체')])
     start_date = models.DateField()
     end_date = models.DateField()
 
