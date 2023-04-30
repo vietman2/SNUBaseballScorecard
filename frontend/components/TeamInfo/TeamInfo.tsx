@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
 
-import { fetchTournamentNames } from "../services/tournament";
-import { fetchTeams } from "../services/team";
-import { TeamType } from "../variables/types";
+import { fetchTournamentNames } from "../../services/tournament";
+import { fetchTeams } from "../../services/team";
+import { TeamType } from "../../variables/types";
 
 // TODO: 팀 이름 터치 시 팀 정보 페이지로 이동
 
@@ -45,9 +45,9 @@ export default function TeamInfo() {
     }
   };
 
-  const render = (team: TeamType) => {
+  const renderTeamInfo = (team: TeamType) => {
     return (
-      <View style={styles.row}>
+      <View style={styles.info_row}>
         <Text style={{ flex: 3, textAlign: "center", fontWeight: "bold" }}>
           {team.team_id}
         </Text>
@@ -62,12 +62,29 @@ export default function TeamInfo() {
   };
 
   const showData = () => {
-    if (value == null) return <></>;
+    if (value === null) return <></>;
     else {
       return (
         <View>
+          <View style={styles.info_row}>
+            <Text style={{ flex: 3, fontWeight: "bold", textAlign: "center" }}>
+              팀명
+            </Text>
+            <Text style={{ flex: 2, fontWeight: "bold", textAlign: "center" }}>
+              대표자
+            </Text>
+            <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
+              선수 수
+            </Text>
+            <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
+              와일드카드
+            </Text>
+            <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
+              선수 출신
+            </Text>
+          </View>
           {teams.map((team) => {
-            return render(team);
+            return renderTeamInfo(team);
           })}
         </View>
       );
@@ -94,27 +111,7 @@ export default function TeamInfo() {
           onChangeValue={getData}
         />
       </View>
-
-      <View style={styles.info}>
-        <View style={styles.row}>
-          <Text style={{ flex: 3, fontWeight: "bold", textAlign: "center" }}>
-            팀명
-          </Text>
-          <Text style={{ flex: 2, fontWeight: "bold", textAlign: "center" }}>
-            대표자
-          </Text>
-          <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
-            선수 수
-          </Text>
-          <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
-            와일드카드
-          </Text>
-          <Text style={{ flex: 1, fontWeight: "bold", textAlign: "center" }}>
-            선수 출신
-          </Text>
-        </View>
-        {showData()}
-      </View>
+      <View style={styles.info}>{showData()}</View>
     </View>
   );
 }
@@ -126,18 +123,13 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
-    flexDirection: "row",
     zIndex: 10,
   },
   info: {
     flex: 9,
     backgroundColor: "white",
   },
-  button: {
-    flex: 1,
-    alignItems: "center",
-  },
-  row: {
+  info_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -156,4 +148,3 @@ const dropdownStyles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
