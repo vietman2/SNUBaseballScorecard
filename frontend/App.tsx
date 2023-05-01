@@ -33,7 +33,7 @@ export default function App() {
                 name="user"
                 size={22}
                 style={{ paddingEnd: 15 }}
-                onPress={() => {}}
+                onPress={() => {console.log("SIGNIN AND SIGNUP")}}
               />
             ),
           }}
