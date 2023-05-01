@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'referee',
     'team',
     'tournament',
+    'game',
+    'account',
+    
 ]
 
 MIDDLEWARE = [
