@@ -20,6 +20,7 @@ interface MainProps {
 const { width } = Dimensions.get("window");
 
 export default function MainPage({ navigation }: MainProps) {
+  
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
@@ -44,10 +45,6 @@ export default function MainPage({ navigation }: MainProps) {
             onPress={() => navigation.navigate("Records")}
           />
         </View>
-        <Button
-          title="Testing Center"
-          onPress={() => navigation.navigate("Testing")}
-        />
       </View>
       <View style={styles.lower}>
         <Image
