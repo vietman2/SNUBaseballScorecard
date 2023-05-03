@@ -24,7 +24,7 @@ class Tournament(models.Model):
         return f"{self.year} {self.type}"
     
     @property
-    def id(self):
+    def code(self):
         return f"{self.year%100} {self.type}"
 
     def __str__(self):
