@@ -8,21 +8,31 @@ import {
 } from "react-native";
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
+import UserIcon from "react-native-vector-icons/FontAwesome5";
 
 import { RootStackParamList } from "../App";
 
-type MainPageNavigationProp = StackNavigationProp<RootStackParamList, "MainPage">;
+type MainPageNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "MainPage"
+>;
 
 interface MainProps {
-    navigation: MainPageNavigationProp;
+  navigation: MainPageNavigationProp;
 }
 
 const { width } = Dimensions.get("window");
 
 export default function MainPage({ navigation }: MainProps) {
-  
   return (
     <View style={styles.container}>
+      <UserIcon
+        name="user"
+        size={22}
+        style={{ paddingEnd: 15 }}
+        onPress={() => navigation.navigate("Login")}
+      />
+
       <View style={styles.upper}>
         <Image
           style={styles.logo}
@@ -60,6 +70,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  menu: {
+    position: "absolute",
+    top: 0,
+    right: 1,
   },
   upper: {
     flex: 2,

@@ -1,44 +1,27 @@
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth import get_user_model
-from random import randint
-from .sms import send_verification_code
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
-User = get_user_model()
+from .forms import CustomUserCreationForm
 
-@csrf_exempt
-@require_http_methods(["POST"])
-def signup(request):
-    data = json.loads(request.body)
-    email = data.get('email')
-    user_type = data.get('user_type')
-    phone_number = data.get('phone_number')
-    password = data.get('password')
+def register(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
 
-    if not all([email, user_type, phone_number, password]):
-        return JsonResponse({'error': 'Please fill all fields'}, status=400)
-    
-    user = User.objects.create_user(email=email, user_type=user_type, phone_number=phone_number, password=password)
-    verification_code = str(randint(100000, 999999))
-    request.session['verification_code'] = verification_code
-    send_verification_code(phone_number, verification_code)
-    return JsonResponse({'success': 'User created successfully'}, status=201)
-
-@csrf_exempt
-@require_http_methods(["POST"])
-def verify_phone(request):
-    data = json.loads(request.body)
-    entered_code = data.get('code')
-
-    if entered_code == request.session.get('verification_code'):
-        email = request.session.get('email')
-        user = User.objects.get(email=email)
-        user.is_phone_verified = True
-        user.save()
-        del request.session['verification_code']
-        del request.session['email']
-        return JsonResponse({'success': 'Phone number verified successfully'}, status=200)
+            messages.success(request, "회원가입이 완료되었습니다. 관리자의 승인을 기다려주세요.")
+        else:
+            if form.errors:
+                for field in form:
+                    for error in field.errors:
+                        messages.error(request, error)
     else:
-        return JsonResponse({'error': 'Invalid verification code'}, status=400)
+        form = CustomUserCreationForm()
+    return render(request, "register.html", {"form": form})
+
+def login(request):
+    if request.method == "POST":
+        pass
