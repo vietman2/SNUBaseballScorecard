@@ -2,7 +2,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
-  StackNavigationProp,
 } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import { Provider } from "react-native-paper";
