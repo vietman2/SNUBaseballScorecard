@@ -41,14 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+    'account',
+    'game',
     'group',
     'player',
     'referee',
     'team',
     'tournament',
-    'game',
-    'account',
-    
 ]
 
 MIDDLEWARE = [
@@ -106,19 +105,22 @@ AUTH_USER_MODEL='account.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
+
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR.parent / 'account/static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

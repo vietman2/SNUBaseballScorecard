@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Custom
-test.py
-initial_data.py
 secret.txt
+data_dump.json
+```
