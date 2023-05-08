@@ -2,44 +2,46 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, user_type, password=None, phone_number=None):
+    def create_user(self, name, phonenumber, email=None, password=None, **extra_fields):
+        if not name:
+            raise ValueError("The Name field is required")
+        if not phonenumber:
+            raise ValueError("The PhoneNumber field is required")
         if not email:
-            raise ValueError('Users must have an email address')
-        
-        user = self.model(
-            email=self.normalize_email(email),
-            user_type=user_type,
-            phone_number=phone_number,    
-        )
+            raise ValueError("The Email field is required")
+
+        user = self.model(name=name, phonenumber=phonenumber, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
-    
-    def create_superuser(self, email, password=None, phone_number=None):
-        user = self.create_user(email, 'admin', password, phone_number)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save(using=self._db)
-        return user
-    
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    USER_TYPE_CHOICES = (
-        (1, 'admin'),
-        (2, 'referee'),
-        (3, 'normal'),
-    )
 
-    email = models.EmailField(max_length=255, unique=True)
-    phonenumber = models.CharField(max_length=15, unique=True, blank=True)
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=3)
-    is_phone_verified = models.BooleanField(default=False)
+
+    def create_superuser(self, name, phonenumber, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(name, phonenumber, email, password, **extra_fields)
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    UserTypes = [
+        ('captain', 'captain'),
+        ('vice_captain', 'vice_captain'),
+        ('normal', 'normal'),
+    ]
+
+    name = models.CharField(max_length=255)
+    phonenumber = models.CharField(max_length=11, unique=True)
+    email = models.EmailField(max_length=255, unique=True, null=True, blank=True)
+    user_type = models.CharField(max_length=20, choices=UserTypes, default='normal')
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_type', 'phone_number']
+    USERNAME_FIELD = 'phonenumber'
+    REQUIRED_FIELDS = ['name', 'email']
 
     def __str__(self):
-        return self.email
+        return f"{self.name} - {self.phonenumber}"
