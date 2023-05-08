@@ -13,7 +13,6 @@ import Schedule from "./components/ScheduleResults/ScheduleResults";
 import Records from "./components/Records/Records";
 import Registration from "./components/Registration/Registration";
 import SignIn from "./components/SignIn/SignIn";
-import SignUp from "./components/SignUp/SignUp";
 
 export type RootStackParamList = {
   MainPage: undefined;
@@ -22,7 +21,6 @@ export type RootStackParamList = {
   Records: undefined;
   Registration: undefined;
   Login: undefined;
-  Register: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -38,7 +36,6 @@ export default function App() {
           <Stack.Screen name="Records" component={Records} />
           <Stack.Screen name="Registration" component={Registration} />
           <Stack.Screen name="Login" component={SignIn} />
-          <Stack.Screen name="Register" component={SignUp} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
