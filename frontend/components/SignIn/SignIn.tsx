@@ -1,34 +1,51 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Text } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
+import { useAuth } from "../AuthProvider/AuthProvider";
 import { login } from "../../services/auth";
+import { RootStackParamList } from "../../App";
 
-export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+type NavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
+
+interface SignInProps {
+  navigation: NavigationProp;
+}
+
+export default function SignIn({ navigation }: SignInProps) {
+  const [phonenumber, setPhonenumber] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const { setToken, setUser } = useAuth();
 
   const handleSignIn = async () => {
-    const response = await login(email, password);
-    if (response.status === 200) {
-      Alert.alert("로그인에 성공했습니다.");
-    } else {
-      Alert.alert("로그인에 실패했습니다.");
+    try {
+      const response = await login(phonenumber, password);
+      console.log(response.data);
+
+      setToken(response.data.token);
+      setUser(response.data.user);
+      navigation.navigate("MainPage");
+    } catch (error: any) {
+      setErrorMessage(error.response.data.message);
     }
   };
 
   return (
     <View>
       <TextInput
-        placeholder="이메일"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
+        placeholder="전화번호"
+        onChangeText={(text) => setPhonenumber(text)}
+        value={phonenumber}
       />
       <TextInput
         placeholder="비밀번호"
         onChangeText={(text) => setPassword(text)}
         value={password}
+        secureTextEntry
       />
       <Button title="로그인" onPress={handleSignIn} />
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
     </View>
   );
 }

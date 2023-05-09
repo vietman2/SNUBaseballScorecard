@@ -26,13 +26,6 @@ const { width } = Dimensions.get("window");
 export default function MainPage({ navigation }: MainProps) {
   return (
     <View style={styles.container}>
-      <UserIcon
-        name="user"
-        size={22}
-        style={{ paddingEnd: 15 }}
-        onPress={() => navigation.navigate("Login")}
-      />
-
       <View style={styles.upper}>
         <Image
           style={styles.logo}
