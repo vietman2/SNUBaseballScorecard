@@ -1,5 +1,8 @@
 # views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.views import View
 from django.contrib import messages
 
 from .forms import CustomUserCreationForm
@@ -22,6 +25,20 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, "register.html", {"form": form})
 
-def login(request):
-    if request.method == "POST":
-        pass
+class LoginView(View):
+    def post(self, request):
+        phonenumber = request.POST.get('phonenumber')
+        password = request.POST.get('password')
+        user = authenticate(request, phonenumber=phonenumber, password=password)
+
+        if user is not None:
+            login(request, user)
+            data = {
+                'id': user.id,
+                'name': user.name,
+                'phonenumber': user.phonenumber,
+                'email': user.email,
+                'user_type': user.user_type,
+            }
+            return JsonResponse(data, status=200)
+        return JsonResponse({'detail': 'Invalid credentials'}, status=401)
