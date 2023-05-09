@@ -1,6 +1,9 @@
 import React from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import { Provider } from "react-native-paper";
 import { View, TouchableOpacity, Text } from "react-native";
@@ -29,19 +32,40 @@ const UserIcon = () => {
   const { user } = useAuth();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  return (
-    <View>
-      <TouchableOpacity
-        style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
-        onPress={() => {
-          navigation.navigate("SignIn");
-        }}
-      >
-        <Icon name="user" size={24} />
-        {user ? <Text>{"유저이름"}</Text> : <Text>로그인</Text>}
-      </TouchableOpacity>
-    </View>
-  );
+  if (user) {
+    return (
+      <View>
+        <TouchableOpacity
+          style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
+          onPress={() => {
+            //TODO: Menu 컴포넌트
+            // 1. 비번 등 유저정보 변경
+            // 2. 관리자라면, 유저관리
+            // 3. 심판정보
+            // 4. 로그아웃
+            navigation.navigate("SignIn");
+          }}
+        >
+          <Icon name="user" size={24} />
+          <Text>{"FIXME:유저이름"}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <TouchableOpacity
+          style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+        >
+          <Icon name="user" size={24} />
+          <Text>로그인</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 };
 
 export default function App() {
