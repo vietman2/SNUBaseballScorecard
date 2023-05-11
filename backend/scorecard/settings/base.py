@@ -24,10 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open(BASE_DIR.parent / 'secret.txt') as f:
     SECRET_KEY = f.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-CORS_ALLOW_ALL_ORIGINS = True
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'scorecard.urls'
@@ -136,9 +132,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
 }
 
