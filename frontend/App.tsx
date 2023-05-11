@@ -6,10 +6,10 @@ import {
 } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import { Provider } from "react-native-paper";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
 import { AuthProvider, useAuth } from "./components/AuthProvider/AuthProvider";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/MainPage/MainPage";
 import TeamInfo from "./components/TeamInfo/TeamInfo";
 import Schedule from "./components/ScheduleResults/ScheduleResults";
 import Records from "./components/Records/Records";
@@ -40,14 +40,14 @@ const UserIcon = () => {
           onPress={() => {
             //TODO: Menu 컴포넌트
             // 1. 비번 등 유저정보 변경
-            // 2. 관리자라면, 유저관리
+            // 2. 관리자라면, 유저관리 + 대회관리
             // 3. 심판정보
             // 4. 로그아웃
             navigation.navigate("SignIn");
           }}
         >
+          <Text style={styles.text}>{"FIXME:유저이름"}</Text>
           <Icon name="user" size={24} />
-          <Text>{"FIXME:유저이름"}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -55,18 +55,27 @@ const UserIcon = () => {
     return (
       <View>
         <TouchableOpacity
-          style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
+          style={{ flexDirection: "row", marginEnd: 16 }}
           onPress={() => {
             navigation.navigate("SignIn");
           }}
         >
+          <Text style={styles.text}>로그인</Text>
           <Icon name="user" size={24} />
-          <Text>로그인</Text>
         </TouchableOpacity>
       </View>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: "center",
+    marginTop: 4,
+    marginEnd: 10,
+    fontWeight: "bold",
+  }
+});
 
 export default function App() {
   return (
