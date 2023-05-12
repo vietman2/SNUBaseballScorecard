@@ -1,16 +1,14 @@
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   Button,
-  Dimensions,
 } from "react-native";
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
-import UserIcon from "react-native-vector-icons/FontAwesome5";
 
-import { RootStackParamList } from "../App";
+import { RootStackParamList } from "../../App";
+import { styles } from "./styles";
 
 type MainPageNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -21,24 +19,16 @@ interface MainProps {
   navigation: MainPageNavigationProp;
 }
 
-const { width } = Dimensions.get("window");
-
 export default function MainPage({ navigation }: MainProps) {
   return (
     <View style={styles.container}>
-      <UserIcon
-        name="user"
-        size={22}
-        style={{ paddingEnd: 15 }}
-        onPress={() => navigation.navigate("Login")}
-      />
-
       <View style={styles.upper}>
         <Image
           style={styles.logo}
-          source={require("../assets/images/logo.jpg")}
+          source={require("../../assets/images/logo.jpg")}
         />
         <Text style={styles.title}>
+          {/*TODO: FIXME*/ }
           Open up App.tsx to start working on your app!
         </Text>
         <View style={styles.buttons}>
@@ -59,49 +49,10 @@ export default function MainPage({ navigation }: MainProps) {
       <View style={styles.lower}>
         <Image
           style={styles.background}
-          source={require("../assets/images/background.jpg")}
+          source={require("../../assets/images/background.jpg")}
         />
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  menu: {
-    position: "absolute",
-    top: 0,
-    right: 1,
-  },
-  upper: {
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: width,
-  },
-  lower: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: 200,
-    height: 200,
-  },
-  background: {
-    resizeMode: "contain",
-    width: "100%",
-    height: "100%",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});

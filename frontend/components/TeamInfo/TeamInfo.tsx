@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
 
 import { fetchTournamentNames } from "../../services/tournament";
 import { fetchTeams } from "../../services/team";
 import { TeamType } from "../../variables/types";
+import { dropdownStyles, styles } from "./styles";
 
 // TODO: 팀 이름 터치 시 팀 정보 페이지로 이동
 
@@ -115,36 +116,3 @@ export default function TeamInfo() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  picker: {
-    flex: 1,
-    zIndex: 10,
-  },
-  info: {
-    flex: 9,
-    backgroundColor: "white",
-  },
-  info_row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-  },
-});
-
-const dropdownStyles = StyleSheet.create({
-  dropdownLabel: {
-    fontSize: 18,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  dropdownText: {
-    fontSize: 18,
-    textAlign: "center",
-  },
-});

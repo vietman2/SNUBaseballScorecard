@@ -1,6 +1,7 @@
-# views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import UserSerializer
 
 from .forms import CustomUserCreationForm
 
@@ -21,7 +22,5 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, "register.html", {"form": form})
-
-def login(request):
-    if request.method == "POST":
-        pass
+class LoginView(TokenObtainPairView):
+    pass

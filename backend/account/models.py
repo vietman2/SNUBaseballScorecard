@@ -19,6 +19,7 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, name, phonenumber, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_verified', True)
 
         return self.create_user(name, phonenumber, email, password, **extra_fields)
 
@@ -37,6 +38,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
