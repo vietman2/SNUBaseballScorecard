@@ -32,7 +32,7 @@ export default function SignIn({ navigation }: SignInProps) {
       navigation.navigate("MainPage");
     }
     else {
-      var message = "로그인에 실패했습니다.";
+      let message = "로그인에 실패했습니다.";
       if (response.status === 401) {
         message = "전화번호 또는 비밀번호가 잘못되었습니다.";
       }
