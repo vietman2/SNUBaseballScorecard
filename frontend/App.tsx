@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import {
   StackNavigationProp,
@@ -6,8 +6,11 @@ import {
 } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import { Provider } from "react-native-paper";
+import { Provider as ReduxProvider } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import store from "./store/store";
 import { AuthProvider, useAuth } from "./components/AuthProvider/AuthProvider";
 import MainPage from "./components/MainPage/MainPage";
 import TeamInfo from "./components/TeamInfo/TeamInfo";
@@ -31,6 +34,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 const UserIcon = () => {
   const { user } = useAuth();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const [isMenuVisible, setIsMenuVisible] = React.useState(false);
+
+  const toggleMenu = () => {};
 
   if (user) {
     return (
@@ -74,34 +81,47 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginEnd: 10,
     fontWeight: "bold",
-  }
+  },
 });
 
 export default function App() {
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        // TODO
+      }
+    };
+
+    checkToken();
+  }, []);
+
   return (
     <AuthProvider>
       <NavigationContainer>
-        <Provider>
-          <Stack.Navigator
-            initialRouteName="MainPage"
-            screenOptions={{
-              headerRight: () => <UserIcon />,
-            }}
-          >
-            <Stack.Screen name="MainPage" component={MainPage} />
-            <Stack.Screen name="TeamInfo" component={TeamInfo} />
-            <Stack.Screen name="Schedule" component={Schedule} />
-            <Stack.Screen name="Records" component={Records} />
-            <Stack.Screen name="Registration" component={Registration} />
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{
-                headerRight: () => <View></View>,
+        <ReduxProvider store={store}>
+          <Provider>
+            <Stack.Navigator
+              initialRouteName="MainPage"
+              screenOptions={{
+                headerRight: () => <UserIcon />,
               }}
-            />
-          </Stack.Navigator>
-        </Provider>
+            >
+              <Stack.Screen name="MainPage" component={MainPage} />
+              <Stack.Screen name="TeamInfo" component={TeamInfo} />
+              <Stack.Screen name="Schedule" component={Schedule} />
+              <Stack.Screen name="Records" component={Records} />
+              <Stack.Screen name="Registration" component={Registration} />
+              <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{
+                  headerRight: () => <View></View>,
+                }}
+              />
+            </Stack.Navigator>
+          </Provider>
+        </ReduxProvider>
       </NavigationContainer>
     </AuthProvider>
   );
