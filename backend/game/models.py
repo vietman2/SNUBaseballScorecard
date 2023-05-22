@@ -4,6 +4,7 @@ from team.models import Team_Record
 from tournament.models import Tournament
 from player.models import Player_Tournament
 from referee.models import Referee
+from .managers import GameManager
 
 # Create your models here.
 
@@ -24,6 +25,8 @@ class Game(models.Model):
     first_base = models.ForeignKey(Referee, on_delete=models.DO_NOTHING, related_name='first_base')
     third_base = models.ForeignKey(Referee, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='third_base')
     record_keeper = models.ForeignKey(Referee, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='record_keeper')
+
+    objects = GameManager()
     
     def __str__(self):
         return f'{self.tournament.name} {self.gameName}'
