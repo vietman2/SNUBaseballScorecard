@@ -37,8 +37,6 @@ const UserIcon = () => {
 
   const [isMenuVisible, setIsMenuVisible] = React.useState(false);
 
-  const toggleMenu = () => {};
-
   if (user) {
     return (
       <View>
