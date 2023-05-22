@@ -5,7 +5,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import "react-native-gesture-handler";
-import { Provider } from "react-native-paper";
+import { Menu, Provider } from "react-native-paper";
 import { Provider as ReduxProvider } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -42,20 +42,33 @@ const UserIcon = () => {
   if (user) {
     return (
       <View>
-        <TouchableOpacity
-          style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
-          onPress={() => {
-            //TODO: Menu 컴포넌트
-            // 1. 비번 등 유저정보 변경
-            // 2. 관리자라면, 유저관리 + 대회관리
-            // 3. 심판정보
-            // 4. 로그아웃
-            navigation.navigate("SignIn");
-          }}
+        <Menu
+          visible={isMenuVisible}
+          onDismiss={() => setIsMenuVisible(false)}
+          anchor={
+            <TouchableOpacity
+              style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
+              onPress={() => {
+                //TODO: Menu 컴포넌트
+                // 1. 비번 등 유저정보 변경
+                // 2. 관리자라면, 유저관리 + 대회관리
+                // 3. 심판정보
+                // 4. 로그아웃
+
+                navigation.navigate("SignIn");
+              }}
+            >
+              <Text style={styles.text}>{"FIXME:유저이름"}</Text>
+              <Icon name="user" size={24} />
+            </TouchableOpacity>
+          }
         >
-          <Text style={styles.text}>{"FIXME:유저이름"}</Text>
-          <Icon name="user" size={24} />
-        </TouchableOpacity>
+          <Menu.Item onPress={() => {}} title="비밀번호 변경" />
+          <Menu.Item onPress={() => {}} title="유저관리" />
+          <Menu.Item onPress={() => {}} title="대회관리" />
+          <Menu.Item onPress={() => {}} title="심판정보" />
+          <Menu.Item onPress={() => {}} title="로그아웃" />
+        </Menu>
       </View>
     );
   } else {

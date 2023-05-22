@@ -40,5 +40,7 @@ export async function login(phonenumber: string, password: string) {
 }
 
 export async function getUserInfo(phonenumber: string) {
-  
+  //TODO: get user info from backend
+
+  return phonenumber;
 }
