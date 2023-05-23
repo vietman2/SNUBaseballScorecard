@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Platform,
+  KeyboardAvoidingView,
+  TextInput,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -30,26 +38,26 @@ export default function SignIn({ navigation }: SignInProps) {
       setToken(response.data.token);
       setUser(response.data.user);
       navigation.navigate("MainPage");
-    }
-    else {
+    } else {
       let message = "로그인에 실패했습니다.";
       if (response.status === 401) {
         message = "전화번호 또는 비밀번호가 잘못되었습니다.";
-      }
-      else if (response.status === 500) {
+      } else if (response.status === 500) {
         message = "서버 연결에 오류가 발생했습니다.";
-      }
-      else {
+      } else {
         message = "알 수 없는 오류가 발생했습니다.";
       }
       setErrorMessage(message);
     }
-
-    
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+      enabled
+    >
       <View style={styles.upper}>
         <Image
           style={imageStyles.logo}
@@ -88,6 +96,6 @@ export default function SignIn({ navigation }: SignInProps) {
           source={require("../../assets/images/background.jpg")}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
