@@ -28,8 +28,7 @@ export default function MainPage({ navigation }: MainProps) {
           source={require("../../assets/images/logo.jpg")}
         />
         <Text style={styles.title}>
-          {/*TODO: FIXME*/ }
-          Open up App.tsx to start working on your app!
+          서울대학교 교내 야구대회
         </Text>
         <View style={styles.buttons}>
           <Button
@@ -43,6 +42,11 @@ export default function MainPage({ navigation }: MainProps) {
           <Button
             title="기록실"
             onPress={() => navigation.navigate("Records")}
+          />
+          {/* Temporary */}
+          <Button
+            title="대회 관리"
+            onPress={() => navigation.navigate("Management")}
           />
         </View>
       </View>

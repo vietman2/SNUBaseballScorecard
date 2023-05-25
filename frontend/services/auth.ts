@@ -38,3 +38,9 @@ export async function login(phonenumber: string, password: string) {
     return error.response;
   }
 }
+
+export async function getUserInfo(phonenumber: string) {
+  //TODO: get user info from backend
+
+  return phonenumber;
+}

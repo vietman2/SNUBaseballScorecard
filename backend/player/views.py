@@ -1,35 +1,43 @@
+import pandas as pd
 from django.http import JsonResponse
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import MultiPartParser
 
 from .models import Player, Player_Tournament
-from team.models import Team
 
 # Create your views here.
 
-def search_by_name(request, name):
-    if request.method == 'GET':
-        players = Player.objects.filter(name=name).values()
-        player_list = [p for p in players]
-        return JsonResponse(player_list, safe=False)
-    
-def search_by_student_id(request, student_id):
-    if request.method == 'GET':
-        players = Player.objects.filter(student_id=student_id).values()
-        player_list = [p for p in players]
-        return JsonResponse(player_list, safe=False)
-    
-def create(request, student_id, name, elite, team_name, college, department, status):
-    if request.method == 'POST':
-        player = Player(student_id=student_id, name=name, elite=elite)
-        player.save()
-        team = Team.objects.get(name=team_name)
-        player_tournament = Player_Tournament(player=player, team=team_name, college=college, department=department, status=status)
-        player_tournament.save()
-        return JsonResponse({'result': 'success'})
-    
-def create_tournament(request, student_id, team_name, college, department, status):
-    if request.method == 'POST':
-        player = Player.objects.get(student_id=student_id)
-        team = Team.objects.get(name=team_name)
-        player_tournament = Player_Tournament(player=player, team=team_name, college=college, department=department, status=status)
-        player_tournament.save()
-        return JsonResponse({'result': 'success'})
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def excel_file(request):
+    excel_file = request.FILES.get('file')
+
+    if excel_file is None:
+        return JsonResponse({
+            'error': 'No excel file is attached'
+        }, status=400)
+
+    df = pd.read_excel(excel_file, engine='openpyxl')
+
+    summary = {
+        'new_players': 0,
+        'updated_players': 0,
+        'errors': [],
+    }
+
+    for i in range(0, df.shape[0]):
+        row = df.iloc[i]
+        idx = df.index[i]
+
+        college = row['대 학']
+        department = row['학 과']
+        student_id = row['학 번']
+        name = row['성 명']
+        status = row['재적현황']
+
+        print("대학: " + college + ", 학과: " + department + ", 학번: " + str(student_id) + ", 이름: " + name + ", 재적현황: " + status)
+
+
+
+    # Return the summary as a JSON response
+    return JsonResponse(summary)

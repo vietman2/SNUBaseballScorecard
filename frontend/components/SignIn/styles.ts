@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   middle: {
     flex: 1,
+    zIndex: 1,
   },
   lower: {
     flex: 1,
@@ -59,9 +60,10 @@ export const buttonStyles = StyleSheet.create({
 
 export const imageStyles = StyleSheet.create({
   background: {
-    resizeMode: "contain",
-    width: "100%",
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: "cover",
     height: "100%",
+    width: "100%",
   },
   logo: {
     width: 180,

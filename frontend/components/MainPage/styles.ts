@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   upper: {
-    flex: 2,
+    flex: 3,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     width: width,
   },
   lower: {
-    flex: 1,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -32,8 +32,8 @@ export const styles = StyleSheet.create({
     height: "100%",
   },
   title: {
-    marginTop: 30,
-    fontSize: 20,
+    marginVertical: 30,
+    fontSize: 30,
     fontWeight: "bold",
   },
 });
