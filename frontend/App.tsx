@@ -16,7 +16,7 @@ import MainPage from "./components/MainPage/MainPage";
 import TeamInfo from "./components/TeamInfo/TeamInfo";
 import Schedule from "./components/ScheduleResults/ScheduleResults";
 import Records from "./components/Records/Records";
-import Registration from "./components/Registration/Registration";
+import Management from "./components/Management/Management";
 import SignIn from "./components/SignIn/SignIn";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
@@ -27,6 +27,7 @@ export type RootStackParamList = {
   Records: undefined;
   Registration: undefined;
   SignIn: undefined;
+  Management: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -122,7 +123,7 @@ export default function App() {
               <Stack.Screen name="TeamInfo" component={TeamInfo} />
               <Stack.Screen name="Schedule" component={Schedule} />
               <Stack.Screen name="Records" component={Records} />
-              <Stack.Screen name="Registration" component={Registration} />
+              <Stack.Screen name="Management" component={Management} />
               <Stack.Screen
                 name="SignIn"
                 component={SignIn}

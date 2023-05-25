@@ -43,6 +43,11 @@ export default function MainPage({ navigation }: MainProps) {
             title="기록실"
             onPress={() => navigation.navigate("Records")}
           />
+          {/* Temporary */}
+          <Button
+            title="대회 관리"
+            onPress={() => navigation.navigate("Management")}
+          />
         </View>
       </View>
       <View style={styles.lower}>
