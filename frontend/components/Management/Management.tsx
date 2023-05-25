@@ -73,6 +73,10 @@ export default function Management() {
     console.log(response);
   };
 
+  const addPlayer = () => {
+    // TODO
+  };
+
   useEffect(() => {
     getList();
   }, []);
@@ -143,7 +147,7 @@ export default function Management() {
               )}
             </View>
             <View style={{ flex: 1 }}>
-              <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <TouchableOpacity style={styles.button} onPress={() => addPlayer()}>
                 <Text style={styles.buttonText}>추가등록</Text>
               </TouchableOpacity>
             </View>
