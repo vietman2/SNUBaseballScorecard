@@ -7,6 +7,12 @@ class TournamentManager(models.Manager):
         year = int(name.split('-')[0])
         type = name.split('-')[1]
         return Tournament.objects.get(year=year, type=type)
+    
+    def get_names(self):
+        tournaments = Tournament.objects.all()
+        tournament_list = [t for t in tournaments]
+        tournament_list.sort(key=lambda x: (-x.year, x.type))
+        return [t.name for t in tournament_list]
 
 class Tournament(models.Model):
     year = models.IntegerField()

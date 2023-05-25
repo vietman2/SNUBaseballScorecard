@@ -1,7 +1,5 @@
 from django.db import models
 
-from team.models import Team
-
 # Create your models here.
 
 class Player(models.Model):
@@ -12,7 +10,7 @@ class Player(models.Model):
     
 class Player_Tournament(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey('team.Team_Record', on_delete=models.CASCADE, related_name='team_player')
     college = models.CharField(max_length=20)
     department = models.CharField(max_length=20)
     status = models.CharField(max_length=5, choices=[
