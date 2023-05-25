@@ -38,6 +38,22 @@ const UserIcon = () => {
 
   const [isMenuVisible, setIsMenuVisible] = React.useState(false);
 
+  const changePassword = () => {
+    // TODO
+  };
+
+  const userManagement = () => {
+    // TODO
+  };
+
+  const tournamentManagement = () => {
+    // TODO
+  };
+
+  const logout = () => {
+    // TODO
+  };
+
   if (user) {
     return (
       <View>
@@ -48,13 +64,7 @@ const UserIcon = () => {
             <TouchableOpacity
               style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
               onPress={() => {
-                //TODO: Menu 컴포넌트
-                // 1. 비번 등 유저정보 변경
-                // 2. 관리자라면, 유저관리 + 대회관리
-                // 3. 심판정보
-                // 4. 로그아웃
-
-                navigation.navigate("SignIn");
+                setIsMenuVisible(true);
               }}
             >
               <Text style={styles.text}>{"FIXME:유저이름"}</Text>
@@ -62,11 +72,11 @@ const UserIcon = () => {
             </TouchableOpacity>
           }
         >
-          <Menu.Item onPress={() => {}} title="비밀번호 변경" />
-          <Menu.Item onPress={() => {}} title="유저관리" />
-          <Menu.Item onPress={() => {}} title="대회관리" />
-          <Menu.Item onPress={() => {}} title="심판정보" />
-          <Menu.Item onPress={() => {}} title="로그아웃" />
+          <Menu.Item onPress={() => changePassword()} title="비밀번호 변경" />
+          {/* 아래 2개는 관리자일 경우에만 보이도록 */}
+          <Menu.Item onPress={() => userManagement()} title="유저/심판관리" />
+          <Menu.Item onPress={() => tournamentManagement()} title="대회관리" />
+          <Menu.Item onPress={() => logout()} title="로그아웃" />
         </Menu>
       </View>
     );
