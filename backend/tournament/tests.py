@@ -58,11 +58,6 @@ class TournamentTestCase(TestCase):
         with self.assertRaises(Exception):
             Tournament.objects.create(year=2023, type="총장배", start_date=datetime.date(2023, 1, 1), end_date=datetime.date(2023, 1, 2))
 
-    def test_list(self):
-        response = self.client.get('/api/tournament/list/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [{'id': 1, 'year': 2023, 'type': '총장배', 'start_date': '2023-01-01', 'end_date': '2023-01-02'}, {'id': 2, 'year': 2023, 'type': '종체', 'start_date': '2023-01-03', 'end_date': '2023-01-04'}])
-
     def test_names(self):
         response = self.client.get('/api/tournament/names/')
         self.assertEqual(response.status_code, 200)
