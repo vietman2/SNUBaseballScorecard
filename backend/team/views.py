@@ -19,11 +19,22 @@ def teams_by_tournament(request, tournament):
             team_list.append(team_dict)
 
         return JsonResponse(team_list, safe=False)
+    
+def players_team(request, tournament, team):
+    if request.method == 'GET':
+        team_record = Team_Record.objects.get_team_record(tournament, name=team)
+        players = team_record.team_player.all()
 
-    
-def teams_player_num(request, tournament):
-    pass
-    
+        if players.count() == 0:
+            return JsonResponse({'message': 'no players'}, status=404)
+
+        player_list = []
+        for player in players:
+            player_dict = model_to_dict(player)
+            player_list.append(player_dict)
+
+        return JsonResponse(player_list, safe=False)
+
 def setGroup(request, tournament, team, group):
     if request.method == 'PUT':
         team_record = Team_Record.objects.get_team_record(tournament, team)
