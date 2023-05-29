@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .views import GroupsAPI
 
 urlpatterns = [
-    path('<str:tournament>/', views.groups_by_tournament, name='groups_by_tournament'),
+    path('list/', GroupsAPI.as_view(), name='groups_by_tournament'),
 ]
