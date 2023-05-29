@@ -51,23 +51,27 @@ class TeamTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         json = [{
                 'id': 1,
-                'team_id': team1.name,
-                'tournament_id': 1,
+                'team': team1.name,
+                'tournament': 1,
                 'nickname': '서울대',
-                'group_id': 1,
-                'second_round_id': 2,
+                'group': 1,
+                'second_round': 2,
                 'captain_Name': '김서울',
                 'captain_PhoneNumber': '010-1234-5678',
+                'initial_registration': False,
+                'num_players': 0
             },
             {
                 'id': 2,
-                'team_id': team2.name,
-                'tournament_id': 1,
+                'team': team2.name,
+                'tournament': 1,
                 'nickname': '고려대',
-                'group_id': None,
-                'second_round_id': None,
+                'group': None,
+                'second_round': None,
                 'captain_Name': '김고려',
-                'captain_PhoneNumber': '010-1234-5678'
+                'captain_PhoneNumber': '010-1234-5678',
+                'initial_registration': False,
+                'num_players': 0
             }]
         self.assertEqual(response.json(), json)
 

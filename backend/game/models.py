@@ -10,10 +10,10 @@ from .managers import GameManager
 
 class Game(models.Model):
     ## Information
-    gameName = models.CharField(max_length=10)
+    game_name = models.CharField(max_length=10)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='tournament_game')
-    groupGame = models.BooleanField(default=False)
-    gameDateTime = models.DateTimeField()
+    group_game = models.BooleanField(default=False)
+    game_date_time = models.DateTimeField()
     team1 = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team1')
     team2 = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team2')
     team1_home = models.BooleanField(default=False)
@@ -102,26 +102,26 @@ class Order(models.Model):
 class Records(models.Model):
     ## Information
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='game_records')
-    topInnings = models.IntegerField(default=0)
-    bottomInnings = models.IntegerField(default=0)
+    top_innings = models.IntegerField(default=0)
+    bottom_innings = models.IntegerField(default=0)
 
     ## Main Stats
-    topRuns = models.IntegerField(default=0)
-    bottomRuns = models.IntegerField(default=0)
-    topHits = models.IntegerField(default=0)
-    bottomHits = models.IntegerField(default=0)
-    topErrors = models.IntegerField(default=0)
-    bottomErrors = models.IntegerField(default=0)
-    topBBs = models.IntegerField(default=0)
-    bottomBBs = models.IntegerField(default=0)
+    top_runs = models.IntegerField(default=0)
+    bottom_runs = models.IntegerField(default=0)
+    top_hits = models.IntegerField(default=0)
+    bottom_hits = models.IntegerField(default=0)
+    top_errors = models.IntegerField(default=0)
+    bottom_errors = models.IntegerField(default=0)
+    top_BBs = models.IntegerField(default=0)
+    bottom_BBs = models.IntegerField(default=0)
 
     ## Pitching Stats
-    topIP = models.FloatField(default=0)
-    bottomIP = models.FloatField(default=0)
+    top_IP = models.FloatField(default=0)
+    bottom_IP = models.FloatField(default=0)
 
-    winningPitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='winningPitcher')
-    losingPitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='losingPitcher')
-    savePitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='savePitcher')
+    winning_pitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='winningPitcher')
+    losing_pitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='losingPitcher')
+    save_pitcher = models.ForeignKey(Player_Game, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='savePitcher')
 
 class Simple_Record(models.Model):
     ## Information

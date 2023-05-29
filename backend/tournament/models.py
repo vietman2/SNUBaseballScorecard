@@ -4,16 +4,10 @@ from django.db import models
 
 class TournamentManager(models.Manager):
     def get_by_name(self, name):
-        year = int(name.split('-')[0])
-        type = name.split('-')[1]
+        year = int(name.split(' ')[0])
+        type = name.split(' ')[1]
         return Tournament.objects.get(year=year, type=type)
     
-    def get_names(self):
-        tournaments = Tournament.objects.all()
-        tournament_list = [t for t in tournaments]
-        tournament_list.sort(key=lambda x: (-x.year, x.type))
-        return [t.name for t in tournament_list]
-
 class Tournament(models.Model):
     year = models.IntegerField()
     type = models.CharField(max_length=3, choices=[('총장배', '총장배'), ('종체', '종체')])

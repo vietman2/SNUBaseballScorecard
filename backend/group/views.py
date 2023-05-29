@@ -1,13 +1,15 @@
-from django.http import HttpResponse, JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from tournament.models import Tournament
 from .models import Group
+from .serializers import GroupSerializer
 
-# Create your views here.
-    
-def groups_by_tournament(request, tournament):
-    if request.method == 'GET':
+class GroupsAPI(APIView):
+    def get(self, request):
+        tournament = request.query_params.get('tournament')
         t = Tournament.objects.get_by_name(tournament)
-        groups = Group.objects.filter(tournament=t).values()
-        group_list = [g for g in groups]
-        return JsonResponse(group_list, safe=False)
+        groups = Group.objects.all().filter(tournament=t)
+        serializer = GroupSerializer(groups, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

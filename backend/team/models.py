@@ -9,12 +9,6 @@ class Team_RecordManager(models.Manager):
         t = Tournament.objects.get_by_name(tournament)
         team_record = Team_Record.objects.get(tournament=t, team__name=name)
         return team_record
-    
-    def get_player_num(self, tournament, name):
-        t = Tournament.objects.get_by_name(tournament)
-        team_record = Team_Record.objects.get(tournament=t, team__name=name)
-        
-        Player_Tournament.objects.get_queryset().filter(team=team_record).count()
      
 class Team(models.Model):
     name = models.CharField(max_length=10, primary_key=True, unique=True)
