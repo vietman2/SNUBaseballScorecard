@@ -2,10 +2,13 @@ import pandas as pd
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
 
 from .models import Player
-
-# Create your views here.
+from team.models import Team_Record
+from .serializers import PlayerInfosSerializer
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
@@ -75,3 +78,23 @@ def excel_file(request):
 
     # Return the summary as a JSON response
     return JsonResponse(summary)
+
+class PlayerInfosAPI(APIView):
+    def get(self, request):
+        tournament = request.query_params.get('tournament')
+        team = request.query_params.get('team')
+
+        if tournament is None:
+            return Response({'message': 'tournament is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if team is None:
+            return Response({'message': 'team is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        team_record = Team_Record.objects.get_team_record(tournament, name=team)
+        players = team_record.team_player.all()
+
+        if players.count() == 0:
+            return Response({'message': 'no players'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = PlayerInfosSerializer(players, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
