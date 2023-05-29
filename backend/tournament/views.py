@@ -1,10 +1,9 @@
 from django.http import JsonResponse
+from rest_framework.generics import ListCreateAPIView
 
 from .models import Tournament
+from .serializers import TournamentSerializer
 
-# Create your views here.
-
-def names(request):
-    if request.method == 'GET':
-        tournaments = Tournament.objects.get_names()
-        return JsonResponse({"names": tournaments}) 
+class TournamentsAPI(ListCreateAPIView):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
