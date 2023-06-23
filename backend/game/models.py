@@ -14,9 +14,8 @@ class Game(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='tournament_game')
     group_game = models.BooleanField(default=False)
     game_date_time = models.DateTimeField()
-    team1 = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team1')
-    team2 = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team2')
-    team1_home = models.BooleanField(default=False)
+    home = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team1')
+    away = models.ForeignKey(Team_Record, on_delete=models.DO_NOTHING, related_name='team2')
     done = models.BooleanField(default=False)
     forfeit = models.BooleanField(default=False)
 
@@ -128,6 +127,7 @@ class Simple_Record(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     
     ## Runs
+    ## change to arrayfield
     top_runs = models.TextField(default='0,0,0,0,0,0,0')
     bottom_runs = models.TextField(default='0,0,0,0,0,0,0') 
 
