@@ -2,11 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Menu } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Menu, Button } from "react-native-paper";
 
 import { useAuth } from "../AuthProvider/AuthProvider";
-import { styles } from "./styles";
 
 import { RootStackParamList } from "../../App";
 
@@ -39,15 +37,15 @@ export default function UserIcon() {
           visible={isMenuVisible}
           onDismiss={() => setIsMenuVisible(false)}
           anchor={
-            <TouchableOpacity
-              style={{ flexDirection: "row", marginEnd: 16, marginTop: 4 }}
-              onPress={() => {
-                setIsMenuVisible(true);
-              }}
+            <Button
+              icon="account"
+              contentStyle={{ flexDirection: "row-reverse", marginEnd: 10 }}
+              labelStyle={{ fontWeight: "bold" }}
+              onPress={() => setIsMenuVisible(true)}
+              theme={{ colors: { primary: "#000000" } }}
             >
-              <Text style={styles.text}>{"FIXME:유저이름"}</Text>
-              <Icon name="user" size={24} />
-            </TouchableOpacity>
+              유저이름
+            </Button>
           }
         >
           <Menu.Item onPress={() => changePassword()} title="비밀번호 변경" />
@@ -61,16 +59,18 @@ export default function UserIcon() {
   } else {
     return (
       <View>
-        <TouchableOpacity
-          style={{ flexDirection: "row", marginEnd: 16 }}
+        <Button
+          icon="account"
+          contentStyle={{ flexDirection: "row-reverse", marginEnd: 10 }}
+          labelStyle={{ fontWeight: "bold" }}
           onPress={() => {
             navigation.navigate("SignIn");
           }}
+          theme={{ colors: { primary: "#000000" } }}
         >
-          <Text style={styles.text}>로그인</Text>
-          <Icon name="user" size={24} />
-        </TouchableOpacity>
+          로그인
+        </Button>
       </View>
     );
   }
-};
+}
