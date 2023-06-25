@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 
-import { ManagementNavigationProp } from "../../components/Management/Management";
+import { ManagementNavigationProp } from "./Management";
 import { TeamInfoType } from "../../variables/types";
 
 interface Props {
@@ -57,11 +57,11 @@ export default function RegistrationTable({
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={{ textAlign: "center" }}>
-                  {team.num_players > 0 ? "O" : "X"}
+                  {team.initial_registration ? "O" : "X"}
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: "center" }}>0 (0)</Text>
+                <Text style={{ textAlign: "center" }}>{team.num_players} (0)</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Button

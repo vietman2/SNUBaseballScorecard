@@ -4,11 +4,11 @@ import { List } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { RootStackParamList } from "../../App";
-import { styles } from "./styles";
 import { fetchTournaments } from "../../services/tournament";
 import { fetchTeams } from "../../services/team";
 import { TeamInfoType, TournamentType } from "../../variables/types";
-import RegistrationTable from "../../containers/Tables/RegistrationTable";
+import RegistrationTable from "./RegistrationTable";
+import { styles } from "./styles";
 
 export type ManagementNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -40,6 +40,8 @@ export default function Management({ navigation }: Props) {
   const getTeams = async () => {
     if (selectedTournament === "대회 선택") return;
     const teams: TeamInfoType[] = await fetchTeams(selectedTournament);
+
+    console.log(teams)
 
     setTeams(teams);
   }

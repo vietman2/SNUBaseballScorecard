@@ -1,11 +1,12 @@
 export type TeamInfoType = {
-  id: number;
-  nickname: string;
-  team_name: string;
   captain_Name: string;
+  id: number;
+  initial_registration: boolean;
+  nickname: string;
   num_players: number;
-  num_wildcards: number;
-  num_elites: number;
+  team_name: string;
+  //num_wildcards: number;
+  //num_elites: number;
 };
 
 export type GroupType = {
