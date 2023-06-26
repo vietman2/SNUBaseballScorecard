@@ -41,8 +41,6 @@ export default function Management({ navigation }: Props) {
     if (selectedTournament === "대회 선택") return;
     const teams: TeamInfoType[] = await fetchTeams(selectedTournament);
 
-    console.log(teams)
-
     setTeams(teams);
   }
 

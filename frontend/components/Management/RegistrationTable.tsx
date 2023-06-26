@@ -4,6 +4,7 @@ import { Button } from "react-native-paper";
 
 import { ManagementNavigationProp } from "./Management";
 import { TeamInfoType } from "../../variables/types";
+import { tableStyles } from "./styles";
 
 interface Props {
   tournament: string;
@@ -11,11 +12,11 @@ interface Props {
   navigation: ManagementNavigationProp;
 }
 
-export default function RegistrationTable({
-  tournament,
-  teams,
-  navigation,
-}: Props) {
+export default function RegistrationTable(props: Props) {
+  const tournament = props.tournament;
+  const teams = props.teams;
+  const navigation = props.navigation;
+
   const onPressRegistration = (team: TeamInfoType) => {
     // 기간 지나면 비활성화
     navigation.navigate("Registration", {
@@ -24,46 +25,50 @@ export default function RegistrationTable({
     });
   };
 
+  const onPressAddRegistration = () => {
+    console.log("추가 등록");
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={tableStyles.flex1}>
       <View>
-        <Text style={styles.title}>팀 목록</Text>
+        <Text style={tableStyles.title}>팀 목록</Text>
       </View>
 
-      <View style={{ flex: 1, flexDirection: "row", marginTop: 10 }}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.topColumn}>팀 이름</Text>
+      <View style={tableStyles.topBox}>
+        <View style={tableStyles.flex1}>
+          <Text style={tableStyles.topColumn}>팀 이름</Text>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.topColumn}>등록 완료</Text>
+        <View style={tableStyles.flex1}>
+          <Text style={tableStyles.topColumn}>등록 완료</Text>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.topColumn}>등록 선수 수 (등록 대기)</Text>
+        <View style={tableStyles.flex1}>
+          <Text style={tableStyles.topColumn}>등록 선수 수 (등록 대기)</Text>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.topColumn}>엔트리 등록</Text>
+        <View style={tableStyles.flex1}>
+          <Text style={tableStyles.topColumn}>엔트리 등록</Text>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.topColumn}>추가 등록</Text>
+        <View style={tableStyles.flex1}>
+          <Text style={tableStyles.topColumn}>추가 등록</Text>
         </View>
       </View>
-
-      <View style={{ flex: 8 }}>
-        {teams.map((team, index) => {
+      {teams.map((team, index) => {
           return (
-            <View key={index} style={{ flex: 1, flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: "center" }}>{team.team_name}</Text>
+            <View key={index} style={tableStyles.otherBox}>
+              <View style={tableStyles.flex1}>
+                <Text style={tableStyles.centerText}>{team.team_name}</Text>
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: "center" }}>
+              <View style={tableStyles.flex1}>
+                <Text style={tableStyles.centerText}>
                   {team.initial_registration ? "O" : "X"}
                 </Text>
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: "center" }}>{team.num_players} (0)</Text>
+              <View style={tableStyles.flex1}>
+                <Text style={tableStyles.centerText}>
+                  {team.num_players} (0)
+                </Text>
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={tableStyles.flex1}>
                 <Button
                   mode="contained"
                   onPress={() => onPressRegistration(team)}
@@ -71,27 +76,18 @@ export default function RegistrationTable({
                   등록하기
                 </Button>
               </View>
-              <View style={{ flex: 1 }}>
-                <Button mode="contained" onPress={() => {}}>
+              <View style={tableStyles.flex1}>
+                <Button
+                  mode="contained"
+                  onPress={() => onPressAddRegistration()}
+                >
                   추가등록
                 </Button>
               </View>
             </View>
           );
         })}
-      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: { fontSize: 20, fontWeight: "bold", textAlign: "center" },
-  topColumn: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});

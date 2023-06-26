@@ -4,24 +4,33 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center"
   },
-  team: {
+  title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#1a202c",
   },
-  title: {
+  headerText: {
     fontSize: 18,
     fontWeight: "400",
-    color: "#719096",
     textAlign: "center",
+    margin: 10,
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
     padding: 10,
     margin: 10,
     borderRadius: 5,
+  },
+  
+});
+
+export const tableStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center"
   },
   boldText: {
     fontSize: 20,
@@ -29,7 +38,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
   },
-  tableRow: {
+  table: {
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
@@ -40,4 +49,4 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
   },
-});
+})

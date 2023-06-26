@@ -1,5 +1,6 @@
 export type TeamInfoType = {
   captain_Name: string;
+  captain_PhoneNumber: string;
   id: number;
   initial_registration: boolean;
   nickname: string;
