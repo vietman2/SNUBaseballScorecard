@@ -8,8 +8,8 @@ from .serializers import GroupSerializer
 
 class GroupsAPI(APIView):
     def get(self, request):
-        tournament = request.query_params.get('tournament')
-        t = Tournament.objects.get_by_name(tournament)
-        groups = Group.objects.all().filter(tournament=t)
+        tournament_name = request.query_params.get('tournament')
+        tournament = Tournament.objects.get_by_name(tournament_name)
+        groups = Group.objects.all().filter(tournament=tournament)
         serializer = GroupSerializer(groups, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

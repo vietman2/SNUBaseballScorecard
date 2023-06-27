@@ -1,13 +1,13 @@
-export type TeamType = {
-  id: number;
-  team: string;
-  tournament_id: number;
-  group_id: number;
+export type TeamInfoType = {
   captain_Name: string;
   captain_PhoneNumber: string;
-  nickname: string;
-  num_players: number | null;
+  id: number;
   initial_registration: boolean;
+  nickname: string;
+  num_players: number;
+  team_name: string;
+  //num_wildcards: number;
+  //num_elites: number;
 };
 
 export type GroupType = {
@@ -15,3 +15,25 @@ export type GroupType = {
   name: string;
   tournament_id: number;
 };
+
+export type PlayerRegType = {
+  college: string;
+  department: string;
+  student_id: string;
+  name: string;
+  status: string;
+}
+
+export type RegistrationType = {
+  new_players: PlayerRegType[];
+  similar_players: PlayerRegType[];
+  existing_players: PlayerRegType[];
+  errors: PlayerRegType[];
+};
+
+export type TournamentType = {
+  id: number;
+  name: string;
+  start_date: string;
+  end_date: string;
+}

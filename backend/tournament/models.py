@@ -14,6 +14,13 @@ class Tournament(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
 
+    winner = models.OneToOneField('team.Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='winner')
+    runner_up = models.OneToOneField('team.Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='runner_up')
+    third_place = models.OneToOneField('team.Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='third_place')
+    mvp = models.OneToOneField('player.Player', on_delete=models.SET_NULL, null=True, blank=True, related_name='mvp')
+    batter_king = models.OneToOneField('player.Player', on_delete=models.SET_NULL, null=True, blank=True, related_name='batter_king')
+    pitcher_king = models.OneToOneField('player.Player', on_delete=models.SET_NULL, null=True, blank=True, related_name='pitcher_king')
+
     objects = TournamentManager()
 
     class Meta:

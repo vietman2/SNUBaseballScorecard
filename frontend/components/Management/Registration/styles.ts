@@ -4,44 +4,49 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center"
   },
   title: {
-    fontSize: 30,
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#1a202c",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "400",
     textAlign: "center",
     margin: 10,
   },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
+  button: {
+    alignItems: "center",
+    padding: 10,
     margin: 10,
+    borderRadius: 5,
   },
+  
 });
 
 export const tableStyles = StyleSheet.create({
-  flex1: {
+  container: {
     flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center"
   },
-  title: {
+  boldText: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+    margin: 10,
   },
-  topBox: {
+  table: {
     flexDirection: "row",
-    marginVertical: 10
+    alignItems: "center",
+    margin: 10,
   },
-  topColumn: {
+  tableCell: {
+    flex: 1,
     fontSize: 16,
-    fontWeight: "bold",
     textAlign: "center",
+    margin: 10,
   },
-  otherBox: {
-    flexDirection: "row",
-    marginTop: 5
-  },
-  centerText: {
-    textAlign: "center",
-  },
-});
+})

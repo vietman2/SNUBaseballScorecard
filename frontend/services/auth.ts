@@ -2,24 +2,6 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_BASE_URL } from "./apiConfig";
 
-export async function register(
-  name: string,
-  phonenumber: string,
-  email: string,
-  password: string,
-  user_type: string
-) {
-  const url = `${API_BASE_URL}/account/register/`;
-  const response = await axios.post(url, {
-    name,
-    phonenumber,
-    email,
-    password,
-    user_type,
-  });
-  return response.data;
-}
-
 export async function login(phonenumber: string, password: string) {
   const url = `${API_BASE_URL}/account/login/`;
 

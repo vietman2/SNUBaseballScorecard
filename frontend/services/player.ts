@@ -11,5 +11,5 @@ export async function uploadExcel(formData: FormData) {
   };
 
   const response = await axios.post(url, formData, config);
-  return response.data;
+  return response;
 }

@@ -1,159 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, Platform, Alert, TouchableOpacity } from "react-native";
-import * as DocumentPicker from "expo-document-picker";
-import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
+import { useState, useEffect } from "react";
+import { Text, View } from "react-native";
+import { List } from "react-native-paper";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-import { dropdownStyles, styles } from "./styles";
-import { fetchTournamentNames } from "../../services/tournament";
+import { RootStackParamList } from "../../App";
+import { fetchTournaments } from "../../services/tournament";
 import { fetchTeams } from "../../services/team";
-import { TeamType } from "../../variables/types";
-import { uploadExcel } from "../../services/player";
+import { TeamInfoType, TournamentType } from "../../variables/types";
+import RegistrationTable from "./RegistrationTable";
+import { styles } from "./styles";
 
-export default function Management() {
-  const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string | null>(null);
-  const [items, setItems] = useState<ItemType<string>[]>([]);
-  const [teams, setTeams] = useState<TeamType[]>([]);
+export type ManagementNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Management"
+>;
 
-  const getList = async () => {
-    const response = await fetchTournamentNames();
-    const tournaments = [];
+interface Props {
+  navigation: ManagementNavigationProp;
+}
 
-    for (const name of response.names) {
-      tournaments.push({
-        label: name,
-        value: name,
-      });
-    }
+export default function Management({ navigation }: Props) {
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [tournamentList, setTournamentList] = useState<TournamentType[]>([]);
+  const [selectedTournament, setSelectedTournament] = useState<string>("대회 선택");
+  const [teams, setTeams] = useState<TeamInfoType[]>([]);
 
-    setItems(tournaments);
-    setValue(tournaments[0].value);
-    getData();
+  const handlePress = () => setExpanded(!expanded);
+  const handleItemPress = (item: string) => {
+    setSelectedTournament(item);
+    setExpanded(false);
   };
 
-  const getData = async () => {
-    if (value == null) return;
-    else {
-      const response = await fetchTeams(value);
-      const teams = [];
+  const renderTournaments = async () => {
+    const tournaments: TournamentType[] = await fetchTournaments();
 
-      for (const team of response) {
-        teams.push(team);
-      }
-
-      setTeams(teams);
-    }
+    setTournamentList(tournaments);
   };
 
-  const uploadFile = async () => {
-    const file = await DocumentPicker.getDocumentAsync({
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
+  const getTeams = async () => {
+    if (selectedTournament === "대회 선택") return;
+    const teams: TeamInfoType[] = await fetchTeams(selectedTournament);
 
-    if (file.type === "cancel") {
-      Alert.alert("파일을 선택해주세요.");
-      return;
-    }
-
-    if (!file.name.endsWith(".xlsx")) {
-      Alert.alert("엑셀 파일만 업로드 가능합니다.");
-      return;
-    }
-
-    const fileUri =
-      Platform.OS === "android" ? file.uri : file.uri.replace("file://", "");
-    const res = await fetch(fileUri);
-    const blob = await res.blob();
-
-    const formData = new FormData();
-    formData.append("file", blob, file.name);
-
-    const response = await uploadExcel(formData);
-
-    console.log(response);
-  };
-
-  const addPlayer = () => {
-    // TODO
-  };
+    setTeams(teams);
+  }
 
   useEffect(() => {
-    getList();
+    renderTournaments();
   }, []);
+
+  useEffect(() => {
+    getTeams();
+  }, [selectedTournament]);
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.title}>대회 관리</Text>
-      </View>
-      <View style={styles.pickerContainer}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.subtitle}>대회 선택</Text>
-        </View>
-        <View style={{ flex: 1 }}>
-          <DropDownPicker
-            items={items}
-            setItems={setItems}
-            open={open}
-            setOpen={setOpen}
-            value={value}
-            setValue={setValue}
-            labelStyle={dropdownStyles.dropdownLabel}
-            textStyle={dropdownStyles.dropdownText}
-            placeholder="대회 선택"
-            onChangeValue={getData}
-          />
-        </View>
-      </View>
-      <View style={{ flex: 8 }}>
-        <View>
-          <Text style={styles.subtitle}>팀 목록 ({teams.length})</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 3 }}>
-            <Text style={styles.text}>팀 이름</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.text}>등록 완료</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.text}>등록 대기</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.text}>엔트리 업로드 (.xlsx)</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.text}>추가등록</Text>
-          </View>
-        </View>
-        {teams.map((team, index) => (
-          <View key={index} style={{ flexDirection: "row" }}>
-            <View style={{ flex: 3 }}>
-              <Text style={styles.text}>{team.team}</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{team.num_players}</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{0}</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              {team.initial_registration ? (
-                <Text style={styles.text}>등록 완료</Text>
-              ) : (
-                <TouchableOpacity style={styles.button} onPress={() => uploadFile()}>
-                  <Text style={styles.buttonText}>업로드</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-            <View style={{ flex: 1 }}>
-              <TouchableOpacity style={styles.button} onPress={() => addPlayer()}>
-                <Text style={styles.buttonText}>추가등록</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </View>
+      <Text style={styles.title}>대회 관리</Text>
+      <List.Section>
+        <List.Accordion
+          title={selectedTournament}
+          expanded={expanded}
+          onPress={handlePress}
+          style={{ backgroundColor: "#fff" }}
+          titleStyle={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}
+        >
+          {tournamentList.map((tournament) => (
+            <List.Item
+              key={tournament.name}
+              title={tournament.name}
+              onPress={() => handleItemPress(tournament.name)}
+              titleStyle={{ fontSize: 16, textAlign: "center" }}
+            />
+          ))}
+        </List.Accordion>
+      </List.Section>
+      <View style={{ flex: 1 }}>{selectedTournament === "대회 선택" ? <></> : <RegistrationTable tournament={selectedTournament} teams={teams} navigation={navigation} />}</View>
+      
     </View>
   );
 }

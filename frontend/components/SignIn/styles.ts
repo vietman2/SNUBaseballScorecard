@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -58,7 +58,7 @@ export const buttonStyles = StyleSheet.create({
   },
 });
 
-export const imageStyles = StyleSheet.create({
+const imageStyles = StyleSheet.create({
   background: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: "cover",
@@ -70,3 +70,5 @@ export const imageStyles = StyleSheet.create({
     height: 180,
   },
 });
+
+export { styles, imageStyles };
