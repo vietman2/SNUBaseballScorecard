@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -12,7 +12,7 @@ export default function UserIcon() {
   const { user } = useAuth();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const [isMenuVisible, setIsMenuVisible] = React.useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const changePassword = () => {
     // TODO

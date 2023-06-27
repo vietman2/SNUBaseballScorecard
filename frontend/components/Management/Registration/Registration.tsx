@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, Alert, Platform } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { Button } from "react-native-paper";

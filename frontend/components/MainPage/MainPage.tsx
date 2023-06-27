@@ -3,7 +3,6 @@ import {
   View,
   Image,
 } from "react-native";
-import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Button } from "react-native-paper";
 

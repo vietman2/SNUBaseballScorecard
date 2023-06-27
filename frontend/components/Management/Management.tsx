@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Text, View } from "react-native";
 import { List } from "react-native-paper";
 import { StackNavigationProp } from "@react-navigation/stack";
